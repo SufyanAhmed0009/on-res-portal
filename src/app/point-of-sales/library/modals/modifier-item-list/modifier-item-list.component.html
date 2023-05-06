@@ -1,0 +1,62 @@
+<h2 class="invoice-heading">
+    <div class="row">
+        <div class="col-6" style="padding-top: 8px;">
+            Modifier List
+        </div>
+        <div [align]="'end'" class="col-6">
+            <button (click)="onClose()" mat-icon-button>
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </div>
+</h2>
+<mat-divider></mat-divider>
+<br />
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading" > </mat-progress-bar>
+<div>
+    <mat-table [dataSource]="this.modifierList" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+            <mat-cell *matCellDef="let data; let i = index;">
+             {{data.modifierId }}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="title">
+            <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+            <mat-cell *matCellDef="let data; let i = index;">
+                <strong> {{ data.groupTitle}} </strong> / {{ data.modifierTitle }}
+            </mat-cell>
+        </ng-container>
+    
+        <ng-container matColumnDef="price">
+            <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+            <mat-cell *matCellDef="let data; let i = index;">
+                {{ data.modifierPrice | number:'.2' }}
+            </mat-cell>
+        </ng-container>
+       
+        <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+            <mat-cell *matCellDef="let data; let i = index;">
+                <mat-slide-toggle [color]="'primary'" [disabled]="this.isAllowed"
+                    [(ngModel)]="data.isEnabled"
+                    (change)="updateStatus(data.modifierId, data.isEnabled, data)"
+                  >
+                </mat-slide-toggle>
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="isEnabled">
+            <mat-header-cell *matHeaderCellDef> Enabled </mat-header-cell>
+            <mat-cell *matCellDef="let data; let i = index;">
+                {{ data.isEnabled ? 'Enabled' : 'Disabled'}}
+            </mat-cell>
+        </ng-container>
+
+
+
+        <mat-header-row *matHeaderRowDef="columnsList;"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columnsList;"></mat-row>
+    </mat-table>
+</div>

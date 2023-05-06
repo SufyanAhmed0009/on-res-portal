@@ -1,0 +1,15 @@
+<h3>
+    <i class="fa fa-table"></i>
+    Sheet Upload: 
+</h3>
+
+<p style="color: gray;">
+    <strong>*</strong> Upload XLSX Files Only
+</p>
+
+<div [align]="'center'" >
+    <input [disabled]="isUploading" type="file" id="file1" (change)="onSelected($event)">
+    <label for="file1" class="btn-2">upload</label>
+</div>
+
+<mat-progress-bar [color]="'success'" *ngIf="isUploading" mode="determinate" [value]="progress"></mat-progress-bar>

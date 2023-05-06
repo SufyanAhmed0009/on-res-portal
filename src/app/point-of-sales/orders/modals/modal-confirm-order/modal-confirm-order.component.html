@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-6">
+        <h3>Confirm Order: </h3>
+    </div>
+    <div class="col-6" [align]="'end'">
+        <button mat-icon-button (click)="onClose()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+</div>
+<mat-divider></mat-divider>
+<br>
+<strong>Expected Delivery Time: </strong>
+<p>Time mentioned here will be sent as notification to the user.</p>
+
+<div class="row">
+    <div class="col-md-6">
+        <mat-form-field style="width: 95%;">
+            <mat-label>Choose a date</mat-label>
+            <input [(ngModel)]="deliveryDate" matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="col-md-6">
+        <mat-form-field style="width: 100%;">
+            <input placeholder="Time: " [(ngModel)]="deliveryTime" matInput type="time"  min="{{deliveryDate | date:'HH:mm'}}" max="{{confirmedTime | date:'HH:mm'}}"
+                name="confirmTime">
+        </mat-form-field>
+    </div>
+    
+</div>
+
+<mat-slide-toggle [color]="'primary'" [(ngModel)]="changeStatus">Change Status (Confirmed)</mat-slide-toggle>
+
+<div [align]="'end'" style="height: 50px;">
+    <mat-progress-bar mode="indeterminate" *ngIf="processing"></mat-progress-bar>
+    <button *ngIf="!processing" mat-raised-button (click)="onConfirm()" [color]="'primary'">Confirm</button>
+</div>

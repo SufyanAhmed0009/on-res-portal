@@ -1,0 +1,18 @@
+.image-box {
+    display: block;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    background: #eee;
+}
+
+.mat-list-base.inline-list {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+}
+
+.mat-list mat-list-item {
+    list-style: none;
+    flex: 0 0 33.333333%;
+}

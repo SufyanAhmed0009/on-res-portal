@@ -1,0 +1,12 @@
+.width-eighty {
+    width: 80%;
+}
+
+.mat-option {
+    height: unset;
+    line-height: 38px;
+  }
+
+ .mat-option-text {
+    white-space: normal;
+  }

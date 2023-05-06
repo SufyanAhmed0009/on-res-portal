@@ -1,0 +1,17 @@
+img.modal-image {
+    max-width: 800px;
+    max-height: 800px;
+    display: block;
+    margin: auto;
+    transition: 0.5s ease-out;
+}
+
+::ng-deep .ngxImageZoomContainer > img{
+    max-width: 850px !important;
+}
+
+.img-styling {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }

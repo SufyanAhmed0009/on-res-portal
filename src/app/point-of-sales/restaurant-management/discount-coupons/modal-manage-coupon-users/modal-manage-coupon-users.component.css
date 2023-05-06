@@ -1,0 +1,48 @@
+.mat-column-select {
+    flex: 0 0 7% !important;
+    width: 7% !important;
+}
+.mat-column-name {
+    flex: 0 0 10% !important;
+    width: 10% !important;
+}
+
+.mat-column-number {
+    flex: 0 0 10% !important;
+    width: 10% !important;
+}
+
+.mat-column-unlimited {
+    justify-content: center;
+}
+
+.mat-column-startingDate {
+    flex: 0 0 16% !important;
+    width: 16% !important;
+}
+
+.mat-column-expiryDate {
+    flex: 0 0 16% !important;
+    width: 16% !important;
+}
+
+.mat-column-action {
+    flex: 0 0 8% !important;
+    width: 8% !important;
+    padding-left: 10px !important;
+}
+
+.mat-button-toggle-checked {
+    color: black;
+    border-bottom: 2px solid darkblue; 
+    background-color: #ccf;
+}
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+

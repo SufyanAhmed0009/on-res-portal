@@ -1,0 +1,53 @@
+<p>chat-start works!</p>
+<div class="message-box">
+    <div class="row">
+        <div class="col-6">
+            <h3>Start New Chat</h3>
+        </div>
+        <div class="col-6" [align]="'end'">
+            <button mat-icon-button (click)="onClose()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <br>
+    <mat-form-field style="width: 100%;">
+        <span matPrefix>
+            <i class="fa fa-search"></i>
+            &nbsp;&nbsp;
+        </span>
+        <input (input)="onChange()" [(ngModel)]="searchInput" autocomplete="off" placeholder="Enter Name or Phone:"
+            type="text" matInput>
+    </mat-form-field>
+
+
+    <div class="search-results">
+        <mat-list>
+            <mat-list-item style="cursor: pointer;" [ngClass]="{ 'active': result.id == selectedUserId}"
+                (click)="onSelect(result)" *ngFor="let result of searchList">
+                <mat-icon matListIcon>person</mat-icon>
+                <p matLine>
+                    {{ result.firstName }}
+                </p>
+                <p matLine>
+                    <strong>
+                        {{ result.phone }}
+                    </strong>
+                </p>
+            </mat-list-item>
+        </mat-list>
+    </div>
+
+    <div class="send-message">
+        <mat-form-field style="width: 100%;">
+            <textarea rows="3" [(ngModel)]="messageInput" [disabled]="selectedUserId == -1" autocomplete="off"
+                placeholder="Enter Message: " type="text" matInput></textarea>
+        </mat-form-field>
+        <div [align]="'end'">
+            <button [disabled]="selectedUserId == -1" (click)="onSendMessage()" mat-mini-fab [color]="'default'">
+                <i class="fa fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+</div>

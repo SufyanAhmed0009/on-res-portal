@@ -1,0 +1,91 @@
+<h2 class="invoice-heading">
+    <div class="row">
+        <div class="col-6" style="padding-top: 8px;">
+            Menu Items
+        </div>
+        <div [align]="'end'" class="col-6">
+            <button (click)="onClose()" mat-icon-button>
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </div>
+</h2>
+<mat-divider></mat-divider>
+<br />
+<div>
+    <mat-table #table [dataSource]="this.data.menuDetails" class="mat-elevation-z8">
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+            <mat-cell *matCellDef="let data; let i = index;">
+                {{ data.id }}
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="title">
+            <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+            <mat-cell *matCellDef="let data; let i = index;">
+                {{ data.title }}
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="image">
+            <mat-header-cell *matHeaderCellDef> Image </mat-header-cell>
+            <mat-cell *matCellDef="let data; let i = index;">
+                <button mat-mini-fab
+                class="my-fab" (click)="onOpenImage(data.url)" 
+                [color]="'default'" matTooltip="Image">
+                    <!-- <mat-icon>image</mat-icon> -->
+                    <i class="fa fa-image"></i>
+                </button>
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="price">
+            <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
+            <mat-cell *matCellDef="let data; let i = index;">
+                {{ data.price | number:'.2' }}
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="cost">
+            <mat-header-cell *matHeaderCellDef> Cost </mat-header-cell>
+            <mat-cell *matCellDef="let data; let i = index;">
+                {{ data.cost | number:'.2' }}
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="gst">
+            <mat-header-cell *matHeaderCellDef> GST </mat-header-cell>
+            <mat-cell *matCellDef="let data; let i = index;">
+                {{ data.gst | number:'.2' }}
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+            <mat-cell *matCellDef="let data; let i = index;">
+                <mat-slide-toggle [color]="'primary'" [disabled]="userTypeList.includes(25)"
+                    [(ngModel)]="data.isEnabled"
+                    (change)="updateRestaurantMenuStatus(data.status?.id, data.id, data.isEnabled)">
+                </mat-slide-toggle>
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="isEnabled">
+            <mat-header-cell *matHeaderCellDef> Enabled </mat-header-cell>
+            <mat-cell *matCellDef="let data; let i = index;">
+                {{ data.isEnabled ? 'Enabled' : 'Disabled'}}
+            </mat-cell>
+        </ng-container>
+
+        <!-- modifiers Column -->
+        <ng-container matColumnDef="modifiers">
+            <mat-header-cell *matHeaderCellDef>Modifiers</mat-header-cell>
+            <mat-cell *matCellDef="let element; let i = index;">
+                <span *ngIf="element.modifierItemList?.length > 0">
+                    <button mat-mini-fab class="my-fab" [color]="'default'"
+                    (click)="onSelectModifier(element)" matTooltip="Modifier">
+                        <!-- <mat-icon>list</mat-icon> -->
+                        <i class="fa fa-list"></i>
+                    </button>
+                </span>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="columnsList;"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columnsList;"></mat-row>
+    </mat-table>
+</div>

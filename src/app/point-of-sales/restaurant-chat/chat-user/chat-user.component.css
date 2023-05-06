@@ -1,0 +1,68 @@
+.message-box {
+    display: flex;
+    height: 70px;
+    border-bottom: 1px solid #eee;
+}
+
+.message-box:hover {
+    cursor: pointer;
+    background-color: #eef;
+}
+
+.message-box.active {
+    background-color: #ccf;
+}
+
+.message-box.active:hover {
+    background-color: #ccf;
+    cursor: pointer;
+}
+
+.message-user {
+    flex: 1;
+    text-align: center;
+}
+
+.message-body {
+    flex: 4;
+    padding: 15px;
+}
+
+.avatar {
+    display: block;
+    margin: auto;
+    color: white;
+    background-color: #ccc;
+    width: 50px;
+    height: 50px;
+    margin: 10px auto;
+    border-radius: 50px;
+    padding-top: 15px;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.issue {
+    background-color: #fa7;
+}
+
+.user-title {
+    font-size: large;
+    padding: 0px;
+}
+
+.message-text {
+    color: gray;
+    font-size: small;
+}
+
+.message-time {
+    color: gray;
+    font-size: small;
+}
+
+.chat-users {
+    display: block;
+    flex: 1;
+    overflow-y: scroll;
+}

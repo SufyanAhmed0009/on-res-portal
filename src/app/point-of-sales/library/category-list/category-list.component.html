@@ -1,0 +1,90 @@
+<page-box>
+
+    <search-slice (search)="onSearch($event)" [searchTitle]="'Category:'" (cancel)="onCancelSearch()"
+        (refresh)="onRefresh()" [title]="'Manage Categories'">
+    </search-slice>
+
+    <mat-divider></mat-divider>
+
+    <div class="row">
+        <div class="col-md-4" style="padding: 10px; padding-top: 20px;">
+            <span *ngIf="loading" class="load-box" style="background-color: blue;">
+                Loading...
+            </span>
+            <span *ngIf="!loading" class="load-box" style="background-color: green;">
+                Success <i class="fa fa-check"></i>
+            </span>
+            &nbsp;&nbsp;
+            Last Updated:
+            {{ lastFetched | date:'mediumTime' }}
+        </div>
+        <div>
+
+        </div>
+        <div class="col-md-3 right">
+              <mat-button-toggle-group (change)="onStatusChanged()" [(ngModel)]="selectedStatus" name="fontStyle"
+                aria-label="Font Style">
+                <mat-button-toggle *ngFor="let status of statusToggleList" [value]="status.value">
+                    {{ status.title }}
+                </mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+
+        <br /><br /><br /><br />
+    </div>
+
+    <mat-divider></mat-divider>
+    <br>
+
+    <div>
+        <mat-table [dataSource]="currentCategory" class="mat-elevation-z8">
+            <ng-container matColumnDef="categoryId">
+                <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+                <mat-cell *matCellDef="let data;">
+                    {{ data.id }}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="categoryTitle">
+                <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+                <mat-cell *matCellDef="let data;">
+                    {{ data.title }}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="image">
+                <mat-header-cell *matHeaderCellDef> Image </mat-header-cell>
+                <mat-cell *matCellDef="let data; let i = index;">
+                    <button mat-mini-fab
+                    class="my-fab" (click)="onOpenImage(data.fileUrl)" 
+                    [color]="'default'" matTooltip="Image">
+                        <!-- <mat-icon>image</mat-icon> -->
+                        <i class="fa fa-image"></i>
+                    </button>
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="categoryStatus">
+                <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+                <mat-cell *matCellDef="let data;">
+                    {{ data.status }}
+                </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="edit">
+                <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                <mat-cell *matCellDef="let data;">
+                    <button mat-mini-fab class="my-fab" (click)="onEdit(data)" [color]="'default'" matTooltip="Edit">
+                        <i class="fa fa-pencil"></i>
+                    </button>
+                    <button mat-mini-fab class="my-fab" (click)="onSelect(data)" [color]="'default'" matTooltip="Details">
+                        <i class="fa fa-list"></i>
+                    </button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="categories;"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: categories;"></mat-row>
+        </mat-table>
+    </div>
+
+    <mat-paginator [pageIndex]="currentPage.page" [length]="count" [pageSize]="currentPage.size"
+        [pageSizeOptions]="[5, 10, 25, 100]" (page)="onPageChanged($event)">
+    </mat-paginator>
+</page-box>

@@ -1,0 +1,43 @@
+<h2 class="heading">
+    <div class="row">
+        <div class="col-6" style="padding-top: 8px;">Item List</div>
+        <div [align]="'end'" class="col-6">
+            <button (click)="onClose()" mat-icon-button>
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </div>
+</h2>
+
+<mat-table [dataSource]="data.slider.itemList" class="mat-elevation-z8">
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+        <mat-cell *matCellDef="let element;">
+            {{ element.id }}
+        </mat-cell>
+    </ng-container>
+
+    <!-- Title Column -->
+    <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+        <mat-cell *matCellDef="let element;">
+            {{ element.title }}
+        </mat-cell>
+    </ng-container>
+
+    <!-- Details Column -->
+    <ng-container matColumnDef="details">
+        <mat-header-cell *matHeaderCellDef>Details</mat-header-cell>
+        <mat-cell *matCellDef="let element;">
+            {{ element.details }}
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnsList;"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnsList;">
+
+    </mat-row>
+
+</mat-table>

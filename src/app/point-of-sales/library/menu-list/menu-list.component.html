@@ -1,0 +1,35 @@
+<!-- <div class="left">
+    <search-slice (search)="onSearch($event)" [searchTitle]="'Search Here:'" (cancel)="onCancelSearch()"
+        (refresh)="onRefresh()">
+    </search-slice>
+</div> -->
+
+<div fxLayout fxLayoutAlign="center center">
+    <mat-form-field fxFlex="40%">
+        <!-- <input matInput type="text" (keyup)="onSearch($event.target.value)" placeholder="Search"> -->
+        <input matInput type="text" [(ngModel)]="searchCategory" placeholder="Search Here:">
+    </mat-form-field>
+</div>
+
+<mat-divider></mat-divider>
+
+<br />
+
+<mat-table [dataSource]="menus" class="mat-elevation-z8">
+    <ng-container matColumnDef="categoryId">
+        <mat-header-cell *matHeaderCellDef>Category ID</mat-header-cell>
+        <mat-cell *matCellDef="let data">
+            {{ data.categoryId }}
+        </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="categoryTitle">
+        <mat-header-cell *matHeaderCellDef>Category Title</mat-header-cell>
+        <mat-cell *matCellDef="let data">
+            {{ data.categoryTitle }}
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="categoryList;"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: categoryList;" (click)="onSelectCategory(row)">
+    </mat-row>
+</mat-table>

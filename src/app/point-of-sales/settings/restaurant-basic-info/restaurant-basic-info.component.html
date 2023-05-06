@@ -1,0 +1,67 @@
+<page-box>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Restaurant Basic Information</h2>
+        </div>
+    </div>
+    
+    <div class="range-box">
+        <div class="row">
+            <div class="col-md-8">
+                <h3>
+                    <strong>Restaurant Hours:</strong>
+                </h3>
+            </div>
+
+            <div class="col-md-4" [align]="'end'">
+                <button (click)="onAddTime()" [color]="'default'" mat-mini-fab>
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <mat-divider></mat-divider>
+        <br>
+
+        <div class="row" *ngFor="let element of timeRanges; let i = index;">
+            <div class="col-md-12">
+                <ul *ngFor="let item of element.workingDays" class="li">
+                    <mat-checkbox [(ngModel)]="item.isOn" [color]="'primary'">
+                        {{item.title}} &nbsp;
+                    </mat-checkbox>
+                </ul>
+                <br /><br /><br />
+            </div>
+
+            <div class="row p-20" style="padding-left: 55px;">
+                <div class="col-md-4">
+                    <mat-form-field style="width: 100%;">
+                        <input [(ngModel)]="element.startTime" matInput type="time" placeholder="Start Time">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                    <mat-form-field style="width: 100%;">
+                        <input [(ngModel)]="element.endTime" matInput type="time" placeholder="End Time">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-2" [align]='"end"'>
+                    <button (click)="onRemoveAddTime(i)" [color]="'default'" mat-mini-fab>
+                        <span style="color: red;">
+                            <mat-icon>delete</mat-icon>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!isSubmitting" [align]="'end'">
+        <button (click)="onSubmit()" type="button" mat-mini-fab [color]="'primary'">
+            <i class="fa fa-check"></i>
+        </button>
+    </div>
+
+    <!-- <mat-progress-bar *ngIf="isSubmitted" mode="indeterminate"></mat-progress-bar> -->
+</page-box>

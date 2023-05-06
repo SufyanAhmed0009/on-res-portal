@@ -1,0 +1,25 @@
+
+<div class="message-body" *ngFor="let message of userMessages" [ngClass]="message.from?'from':'to'">
+    <span *ngFor="let line of getLines(message.message)">
+        {{ line }} <br>
+    </span>
+
+    <img (click)="onShowImage(message.url)" class="message-image" *ngIf="message.filePresent" [src]="message.url" alt="">
+
+    <div [align]="'end'">
+ 
+            <small *ngIf="(!message.from) && message.ccName">
+                {{ message.ccName }}
+                &nbsp; 
+                -
+                &nbsp;
+            </small>
+            <small>{{message.from ? 'Received at': 'Sent at'}}</small>
+            &nbsp;-&nbsp;
+            <small>{{ message.date | date:'short' }}</small>
+            <span *ngIf="message.appType">
+                &nbsp; - &nbsp;    
+                <small>{{message.appTypeTitle}}</small>
+            </span>
+    </div>
+</div>

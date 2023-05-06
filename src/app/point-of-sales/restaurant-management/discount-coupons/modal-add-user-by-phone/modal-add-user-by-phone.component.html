@@ -1,0 +1,61 @@
+<div>
+    <div *ngIf="isLoading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+    <div >
+        <h3>Info</h3>
+    </div>
+
+    <form [formGroup]="addUserForm">
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field style="width: 100%;">
+                    <mat-label>Country</mat-label>
+                    <mat-select formControlName="country" (selectionChange)="onSelectCountry($event)" >
+                        <mat-option *ngFor="let country of countryList;" [value]="country.id">
+                            {{ country.title }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field style="width: 100%">
+                    <!-- <span matPrefix>+92 &nbsp;</span> -->
+                    <span matPrefix>{{selectedCountryCode}} &nbsp;</span>
+                    <input formControlName="phoneInput" placeholder="Enter Number" autocomplete="off" matInput
+                        type="number">
+                </mat-form-field>
+            </div>
+        </div>
+        <mat-form-field style="width: 100%">
+               <input formControlName="MaxAmount" placeholder="Max Amount" autocomplete="off" matInput
+                type="number">
+        </mat-form-field>
+        <mat-form-field style="width: 100%">
+            <input formControlName="TotalUsage" placeholder="Total Usage" autocomplete="off" matInput
+                type="number">
+        </mat-form-field>
+        <mat-form-field style="width: 100%;">
+            <input matInput [matDatepicker]="startPicker" formControlName="startingDate"
+                placeholder="Starting Date">
+            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field style="width: 100%;">
+            <input matInput [matDatepicker]="expiryPicker" formControlName="expiryDate" placeholder="Expiry Date" [formControl]="expirydate">
+            <mat-datepicker-toggle matSuffix [for]="expiryPicker"></mat-datepicker-toggle>
+            <mat-datepicker #expiryPicker ></mat-datepicker>
+        </mat-form-field>
+        
+        <!-- EXPIRY TIME FIELD -->
+        <!-- <mat-form-field style="width: 100%;">
+            <input matInput type="time" placeholder="Expiry Time" formControlName="expiryTime">
+        </mat-form-field> -->
+    </form>
+    <div  [align]="'end'">
+        <button (click)="onAddByPhone()" mat-raised-button>
+            Add
+        </button>
+    </div>
+
+</div>

@@ -1,0 +1,9 @@
+.mat-column-select {
+    flex: 0 0 8% !important;
+    width: 8% !important;
+}
+
+.mat-column-title {
+    flex: 0 0 20% !important;
+    width: 20% !important;
+}

@@ -1,0 +1,19 @@
+<mat-form-field class="width-eighty">
+
+    <span matPrefix>
+        <i class="fa fa-user"></i> &nbsp;
+    </span>
+    <input matInput placeholder="User: " aria-label="State" [matAutocomplete]="auto" [formControl]="inputControl">
+    
+    <mat-autocomplete (optionSelected)="optionSelected($event)" #auto="matAutocomplete">
+        <mat-option *ngFor="let user of users" [value]="user.value" multiLineOption>
+            {{ user.title }} 
+            <small>{{ user.details }}</small>
+        </mat-option>
+    </mat-autocomplete>
+
+</mat-form-field>
+
+<button (click)="clearSelection()" mat-icon-button>
+    <mat-icon>close</mat-icon>
+</button>

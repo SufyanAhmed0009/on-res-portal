@@ -1,0 +1,13 @@
+steps:
+  # build the container image
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["build", "-t", "gcr.io/$PROJECT_ID/cd-restaurant-portal-test", "--build-arg", "configuration='$_CONFIG'", "."]
+  # push the container image to Container Registry
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/$PROJECT_ID/cd-restaurant-portal-test"]
+  # Deploy container image to Cloud Run
+  - name: "gcr.io/cloud-builders/gcloud"
+    args: ["beta","run","deploy","--allow-unauthenticated","restaurant-portal-test","--image","gcr.io/$PROJECT_ID/cd-restaurant-portal-test","--region","europe-west1","--platform","managed","--memory","128Mi"]
+images:
+  - gcr.io/$PROJECT_ID/cd-restaurant-portal-test
+timeout: 2400s

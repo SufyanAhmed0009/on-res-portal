@@ -1,0 +1,43 @@
+<div [ngClass]="{'active': selectedUser?.id == userMessage.id}" (click)="onSelectMessage()" class="message-box">
+    <div class="message-user">
+        <div class="avatar" *ngIf="!userMessage.issue">
+            {{ getInitial(userMessage.user)}}
+        </div>
+        <div class="avatar issue" *ngIf="userMessage.issue">
+            <i class="fa fa-info"></i>
+        </div>
+    </div>
+    <div class="message-body">
+        <div class="row">
+            <div class="col-8 user-title">
+                {{ userMessage.user | titlecase }}
+            </div>
+            <div class="col-4 message-time" [align]="'end'">
+                {{ userMessage.date | date:'shortTime'}}
+            </div>
+            <div class="message-text">
+                <span *ngIf="userMessage.message?.length <= 40">
+                    <span *ngIf="userMessage.filePresent">
+                        <i class="fa fa-camera" aria-hidden="true"></i>
+                    </span>
+                    <span *ngIf="userMessage.read">
+                        {{ userMessage.filePresent ? 'Photo' : (userMessage.message | slice:0:40) }}
+                    </span>
+                    <strong style="color: black;" *ngIf="!userMessage.read">
+                        
+                        {{ userMessage.filePresent ? 'Photo' : (userMessage.message | slice:0:40) }}
+                    </strong>
+                </span>
+                <span *ngIf="userMessage?.message?.length !=null && userMessage.message.length > 40">
+                    <span *ngIf="userMessage.read">
+                        {{ userMessage.message | slice:0:40 }} ...
+                    </span>
+                    <strong style="color: black;" *ngIf="!userMessage.read">
+                        {{ userMessage.message | slice:0:40 }} ...
+                    </strong>
+                </span>
+
+            </div>
+        </div>
+    </div>
+</div>

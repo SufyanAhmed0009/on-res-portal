@@ -1,0 +1,122 @@
+<div class="container">
+    <mat-card class="card-box">
+        <div class="innerbox">
+
+            <!-- <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar> -->
+            <div class="row">
+                <div class="col-5">
+                    <h3 style="padding-top: 10px;">
+                        <strong>Manage Restaurant Slider Images</strong>
+                    </h3>
+                </div>
+                <div class="col-4">
+                    <!-- STATUS FILTER -->
+                    <mat-button-toggle-group (change)="onStatusChanged()" [(ngModel)]="selectedStatus" name="fontStyle"
+                        aria-label="Font Style">
+                        <mat-button-toggle *ngFor="let status of statusToggleList" [value]="status.value">
+                            {{ status.title }}
+                        </mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
+                <div class="col-3">
+                    <mat-spinner diameter="26" *ngIf="isLoading"></mat-spinner>
+                    <button mat-mini-fab (click)="onRefresh()" *ngIf="!isLoading" [color]="'primary'">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- <mat-divider></mat-divider> -->
+            <br>
+
+            <mat-table [dataSource]="sliderImages" class="mat-elevation-z8">
+
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+                    <mat-cell *matCellDef="let element let i = index;">
+                        {{ element.id }}
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Title Column -->
+                <ng-container matColumnDef="fileName">
+                    <mat-header-cell *matHeaderCellDef>File Name</mat-header-cell>
+                    <mat-cell *matCellDef="let element let  i = index;">
+                        {{ element.fileName }}
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Image Column -->
+                <ng-container matColumnDef="image">
+                    <mat-header-cell *matHeaderCellDef>Image</mat-header-cell>
+                    <mat-cell *matCellDef="let element; let i = index;">
+                        <button mat-icon-button (click)="openImage(element)" [color]="'default'">
+                            <mat-icon>image</mat-icon>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Sort Order Column -->
+                <ng-container matColumnDef="sortOrder">
+                    <mat-header-cell *matHeaderCellDef>Sort Order</mat-header-cell>
+                    <mat-cell *matCellDef="let element let i = index;">
+                        {{ element.sortOrder}}
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Main Page Column -->
+                <ng-container matColumnDef="isMainPage">
+                    <mat-header-cell *matHeaderCellDef>Main Page</mat-header-cell>
+                    <mat-cell *matCellDef="let element let i = index;">
+                        <!-- {{ element.mainPage }} -->
+                        <span *ngIf="element.mainPage" style="color: green;">
+                            &nbsp;&nbsp;&nbsp;
+                            <i class="fa fa-check"></i>
+                        </span>
+                        <span *ngIf="!element.mainPage" style="color: red;">
+                            &nbsp;&nbsp;&nbsp;
+                            <i class="fa fa-times"></i>
+                        </span>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Status Column -->
+                <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+                    <mat-cell *matCellDef="let element; let i = index;">
+                        <span class="status">
+                            {{ element.status }}
+                        </span>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Action Column -->
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef>
+                        <button matTooltip="Add New Slider" (click)="onAddSliderImage()" mat-icon-button
+                            [color]="'default'">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let element; let i = index;">
+                        <button matTooltip="Edit Slider Image" (click)="onUpdateSliderImage(element)" mat-icon-button
+                            class="my-fab" [color]="'default'">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="columnsList"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: columnsList;"></mat-row>
+
+            </mat-table>
+
+            <!-- END OF MAT-TABLE -->
+
+            <br>
+            <mat-paginator [pageIndex]="currentPage.page" [length]="totalNumberOfRecords" [pageSize]="currentPage.size"
+                [pageSizeOptions]="[5, 10, 25, 100]" (page)="onPageChanged($event)">
+            </mat-paginator>
+        </div>
+    </mat-card>
+</div>

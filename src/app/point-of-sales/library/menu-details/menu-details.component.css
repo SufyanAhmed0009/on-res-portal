@@ -1,0 +1,5 @@
+.mat-column-modifiers {
+    flex: 0 0 10% !important;
+    width: 10% !important;  
+    justify-content: center;
+}

@@ -1,0 +1,69 @@
+<div class="row">
+    <div class="col-9">
+        <h3> 
+            <b>
+                Item Slider Details
+            </b>
+        </h3>
+    </div>
+    <div class="col-3" [align]="'end'">
+        <button (click)="onClose()" mat-icon-button>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+</div>
+
+<mat-divider></mat-divider>
+<br>
+
+<form [formGroup]="detailsForm">
+
+    <!-- Title Field -->
+    <mat-form-field style="width: 100%;">
+        <input autocomplete="off" matInput placeholder="Title" formControlName="title" type="text">
+    </mat-form-field>
+
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Code Field -->
+            <mat-form-field style="width: 100%;">
+                <input autocomplete="off" matInput placeholder="Code" formControlName="code" type="text" >
+            </mat-form-field>
+        </div>
+        <div class="col-md-6">
+            <!-- Sort Order Field -->
+            <mat-form-field style="width: 100%;">
+                <input autocomplete="off" matInput placeholder="Sort Order" formControlName="sortOrder" type="number"
+                    min="0">
+            </mat-form-field>
+        </div>
+    </div>
+
+    <!-- Status Field -->
+    <mat-form-field style="width: 100%;">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+            <mat-option *ngFor="let status of statusList;" [value]="status.id">
+                {{ status.title }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+
+
+</form>
+
+
+<div style="height: 50px;" *ngIf="!isSubmitting" [align]="'end'">
+    <button type="button" (click)="onCancel()" mat-mini-fab [color]="'default'">
+        <i class="fa fa-times"></i>
+    </button>
+    &nbsp;
+    <button (click)="onSubmit()" type="button" [disabled]="!detailsForm.valid" mat-mini-fab [color]="'primary'">
+        <i class="fa fa-check"></i>
+    </button>
+</div>
+
+<div style="height: 50px;" *ngIf="isSubmitting">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>

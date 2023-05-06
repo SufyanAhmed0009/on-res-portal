@@ -1,0 +1,155 @@
+<h3>
+    <i class="fa fa-bullhorn"></i>
+    &nbsp;
+    Create Notification
+</h3>
+<mat-divider></mat-divider>
+<br>
+<form [formGroup]="notificationForm">
+
+    <div class="row">
+        <div class="col-8">
+            <mat-form-field style="width: 100%;">
+                <input type="text" autocomplete="off" matInput placeholder="Title" formControlName="title">
+            </mat-form-field>
+        </div>
+        <div class="col-4">
+            <mat-form-field style="width: 100%;">
+                <mat-label>Send: </mat-label>
+                <mat-select formControlName="sendNotif">
+                    <mat-option [value]="true">
+                        Send On Create
+                    </mat-option>
+                    <mat-option [value]="false">
+                        Send Later
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <!--DATE AND TIME INTERVAL-->
+    <div class="row">
+        <div class="col-6">
+            <mat-form-field style="width: 100%;">
+                <input type="date" matInput formControlName="todayDate" placeholder="Scheduled Date"> 
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field style="width: 100%;">
+                <input type="time" matInput placeholder="Scheduled Time" step="1800" formControlName="openingTime">
+            </mat-form-field>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-8">
+            <mat-form-field style="width: 100%;">
+                <textarea type="text" matInput rows="2" placeholder="Details" formControlName="details"></textarea>
+            </mat-form-field>
+        </div>
+        <div class="col-4">
+            <mat-slide-toggle [color]="'primary'" formControlName="popUp">Pop-Up?</mat-slide-toggle>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <!-- App Type field -->
+            <mat-form-field style="width: 100%;">
+                <mat-label>App Types</mat-label>
+                <mat-select [ngModelOptions]="{standalone: true}" [(ngModel)]='selectedAppType'>
+                    <mat-option *ngFor="let type of appTypesList;" [value]="type.id">
+                        {{ type.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="col-4">
+            <mat-form-field style="width: 100%;">
+                <mat-label>Type: </mat-label>
+                <mat-select formControlName="notifType">
+                    <mat-option *ngFor="let type of notificationTypes" [value]="type.code">
+                        {{ type.title }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-4">
+            <mat-form-field style="width: 100%;">
+                <mat-label>Audience: </mat-label>
+                <mat-select (selectionChange)="onAudienceChange($event)" [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="notifReach">
+                    <mat-option *ngFor="let type of audienceTypes" [value]="type.code">
+                        {{ type.title }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-4">
+            <mat-form-field style="width: 100%;">
+                <mat-label>Expiry Date: </mat-label>
+                <input matInput [ngModelOptions]="{standalone: true}" [(ngModel)]="expiryDate" [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+</form>
+
+<!-- Franchise Selector -->
+<franchise-multiselector [hideCities]="true" [hideCountries]="true" [(franchises)]="selectedFranchises">
+</franchise-multiselector>
+
+<form class="example-form">
+    <div style="width: 100%;">
+        <users-selector (selected)="onUserSelected($event)" *ngIf="enableUserSelection"></users-selector>
+        &nbsp;
+        <!-- Sheet Upload Button -->
+        <button mat-mini-fab (click)="onExcelUpload()" [color]="'primary'">
+            <i class="fa fa-upload"></i>
+        </button>
+    </div>
+    <mat-list *ngIf="enableUserSelection" class="inline-list">
+        <mat-list-item *ngFor="let customer of selectedCustomersList ;
+         let i = index; ">
+            <span (click)=" removeCustomer(i)" style="cursor: pointer;">
+                <i class="fa fa-times"></i>
+            </span>
+            &nbsp;
+            {{ customer.title }}
+        </mat-list-item>
+    </mat-list>
+</form>
+
+<div class="image-box">
+    <h3>Image Upload</h3>
+    <mat-slide-toggle [color]="'primary'" [(ngModel)]="isImageUrl"> Image Url?</mat-slide-toggle>
+    <br>
+    <div *ngIf="isImageUrl">
+        <!-- Image Url Field -->
+        <span matPrefix>
+            <i class="fa fa-image"></i>
+        </span>
+        <input type="text" autocomplete="off" matInput placeholder="Image Url" [(ngModel)]="imageUrl">
+    </div>
+    <hr>
+    <div *ngIf="!isImageUrl">
+        <app-image-upload (onFileUploaded)="onImageUpload($event)"></app-image-upload>
+    </div>
+    &nbsp;
+    <img style="display: block; max-width: 200px; margin: auto;" *ngIf="imageUrl" [src]="imageUrl" alt="">
+</div>
+
+
+<div style="height: 50px;" [align]="'end'">
+    <mat-progress-bar mode="indeterminate" *ngIf="isSubmitting"></mat-progress-bar>
+    <button [disabled]="!notificationForm.valid" mat-raised-button (click)="onSubmit()" *ngIf="!isSubmitting"
+        [color]="'primary'">Create</button>
+</div>

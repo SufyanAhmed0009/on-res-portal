@@ -1,0 +1,55 @@
+<h3>Notifications | Edit</h3>
+<mat-divider></mat-divider>
+<br>
+<form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+
+    <div class="row">
+        <div class="col-md-8">
+            <mat-form-field class="full-width">
+                <input matInput formControlName="title" placeholder="Title" type="text">
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field class="full-width">
+                <mat-label>Status</mat-label>
+                <mat-select matInput formControlName="status">
+                    <mat-option *ngFor="let status of statusList" [value]="status.id">
+                        {{ status.title }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- App Type field -->
+            <mat-form-field style="width: 100%;">
+                <mat-label>App Types</mat-label>
+                <mat-select [ngModelOptions]="{standalone: true}" [(ngModel)]='selectedAppType'>
+                    <mat-option *ngFor="let type of appTypesList;" [value]="type.id">
+                        {{ type.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <mat-form-field class="full-width">
+        <textarea matInput formControlName="details" placeholder="Details" rows="3"></textarea>
+    </mat-form-field>
+
+
+
+    <div *ngIf="!isSubmitting" style="height: 50px;" [align]="'end'">
+        <button mat-mini-fab type="button" [color]="'default'" (click)="onClose()">
+            <i class="fa fa-times"></i>
+        </button>
+        &nbsp;
+        <button [disabled]="!updateForm.valid" type="submit" mat-mini-fab [color]="'primary'">
+            <i class="fa fa-check"></i>
+        </button>
+    </div>
+    <div *ngIf="isSubmitting" style="height: 50px;">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+
+</form>

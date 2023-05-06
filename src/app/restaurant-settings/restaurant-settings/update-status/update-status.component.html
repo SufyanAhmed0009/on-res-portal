@@ -1,0 +1,28 @@
+<h2 class="invoice-heading">
+    <div class="row">
+        <div class="col-6" style="padding-top: 8px;">
+           Restaurant Status
+        </div>
+        <div [align]="'end'" class="col-6">
+            <button (click)="onClose()" mat-icon-button>
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </div>
+</h2>
+<mat-divider></mat-divider>
+<br />
+<div class="mat-table">
+    <div class="mat-header-row">
+      <div class="mat-header-cell">Action</div>
+      <div class="mat-header-cell">Status</div>
+      <div class="mat-header-cell">Status Title</div>
+    </div>
+    <div class="mat-row">
+      <div class="mat-cell">Enable/Offline</div>
+      <div class="mat-cell">
+          <mat-slide-toggle  [(ngModel)]="isEnabled" [color]="'primary'" (change)="updateRestaurantStatus(isEnabled)"
+        ></mat-slide-toggle></div>
+      <div class="mat-cell">  {{title}}</div>
+    </div>
+  </div>

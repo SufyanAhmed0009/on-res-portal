@@ -1,0 +1,48 @@
+<h2 class="invoice-heading">
+    <div class="row">
+        <div class="col-6" style="padding-top: 8px;">
+           Pause Restaurant 
+        </div>
+        <div [align]="'end'" class="col-6">
+            <button (click)="onClose()" mat-icon-button>
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </div>
+</h2>
+<mat-divider></mat-divider>
+<br />
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+      
+    <!-- ID Column -->
+    <ng-container matColumnDef="radioValue">
+        <mat-header-cell *matHeaderCellDef>Select</mat-header-cell>
+       
+          <mat-cell *matCellDef="let element; let rowIndex = index;">
+            <mat-radio-button color="primary"
+             name="rhSelectionRadio" 
+             [value]="rowIndex" 
+             *ngIf="element.selectable"
+              (click)="selectRow($event, element)"
+             [checked]="element.selected">
+            </mat-radio-button>
+        
+          </mat-cell>
+      </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="timeSlot">
+      <mat-header-cell *matHeaderCellDef>Time</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.time |date: 'hh:mm a '}}</mat-cell>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row   *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-divider></mat-divider>
+<br />
+  <div style="height: 50px;"  [align]="'end'">
+    
+    <button  (click)="onSubmit()"  type="button" mat-mini-fab [color]="'primary'">
+        <i class="fa fa-check"></i>
+    </button>
+</div>

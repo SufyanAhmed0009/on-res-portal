@@ -1,0 +1,10 @@
+<div class="main-box">
+    <div class="message-input">
+        <textarea [(ngModel)]="messageContent" (keydown.enter)="onSendMessage()" class="textarea resize-ta"></textarea>
+    </div>
+    <div class="buttons">
+        <button (click)="onSendMessage()" [disabled]="messageContent.trim() == ''" mat-mini-fab [color]="'default'"><mat-icon>send</mat-icon></button>
+        &nbsp;
+        <ng-content></ng-content>
+    </div>
+</div>

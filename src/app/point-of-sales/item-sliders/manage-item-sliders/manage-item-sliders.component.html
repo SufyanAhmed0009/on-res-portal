@@ -1,0 +1,105 @@
+<page-box>
+    <div class="row">
+        <div class="col-md-5">
+            <h3>
+                <strong>
+                    <i class="fa fa-sliders fa-lg"></i> Manage Item Sliders
+                </strong>
+            </h3>
+        </div>
+        <div class="col-md-5">
+            <form (ngSubmit)="onSearch()" [formGroup]="searchForm">
+                <button mat-mini-fab type="button" (click)="removeSearch()" [color]="'warn'">
+                    <i class="fa fa-times"></i>
+                </button>
+                &nbsp;
+                <mat-form-field>
+                    <input autocomplete="off" formControlName="searchInput" matInput placeholder="Search">
+                </mat-form-field>
+                &nbsp;
+                <button mat-mini-fab [color]="'primary'">
+                    <i class="fa fa-search"></i>
+                </button>
+            </form>
+        </div>
+        <div class="col-md-2" style="padding: 10px;">
+            <mat-spinner diameter="26" *ngIf="isLoading"></mat-spinner>
+            <button mat-mini-fab (click)="onRefresh()" *ngIf="!isLoading" [color]="'primary'">
+                <i class="fa fa-refresh"></i>
+            </button>
+        </div>
+    </div>
+
+
+    <mat-divider></mat-divider>
+
+    <mat-table [dataSource]="sliderList" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+            <mat-cell *matCellDef="let element; let i = index;">
+                {{ element.id }}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="title">
+            <mat-header-cell *matHeaderCellDef>Title</mat-header-cell>
+            <mat-cell *matCellDef="let element; let i = index;">
+                {{ element.title }}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="code">
+            <mat-header-cell *matHeaderCellDef>Code </mat-header-cell>
+            <mat-cell *matCellDef="let element; let i = index;">
+                {{ element.code}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="sortOrder">
+            <mat-header-cell *matHeaderCellDef>Sort Order </mat-header-cell>
+            <mat-cell *matCellDef="let element; let i = index;">
+                {{ element.sortOrder}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef>Status </mat-header-cell>
+            <mat-cell *matCellDef="let element; let i = index;">
+                {{ element.status.title}}
+            </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef>
+                <button matTooltip="Add Slider" (click)="onAddSlider()" mat-mini-fab [color]="'default'">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element; let i = index;" (click)="$event.stopPropagation()">
+                <button matTooltip="Add Items" (click)="onAddItem(element)" mat-mini-fab class="my-fab"
+                    [color]="'default'">
+                    <i class="fa fa-plus"></i>
+                </button>
+                &nbsp;
+                <button matTooltip="Update Slider" (click)="onUpdateSlider(element)" mat-mini-fab class="my-fab"
+                    [color]="'default'">
+                    <i class="fa fa-pencil"></i>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="columnsList"></mat-header-row>
+        <mat-row (click)="onSelectRow(row)" *matRowDef="let row; columns: columnsList;"></mat-row>
+
+    </mat-table>
+
+    <!-- END OF MAT-TABLE -->
+
+    <br>
+    <mat-paginator [pageIndex]="currentPage.page" [length]="totalNumberOfRecords" [pageSize]="currentPage.size"
+        [pageSizeOptions]="[5, 10, 25, 100]" (page)="onPageChanged($event)">
+    </mat-paginator>
+
+</page-box>

@@ -1,0 +1,15 @@
+.heading{
+    background-color: #3f51b5;
+    color: white;
+    padding: 10px;
+}
+
+.mat-column-id {
+    flex: 0 0 20% !important;
+    width: 20% !important; 
+}
+
+.mat-column-title {
+    flex: 0 0 50% !important;
+    width: 50% !important;
+} 

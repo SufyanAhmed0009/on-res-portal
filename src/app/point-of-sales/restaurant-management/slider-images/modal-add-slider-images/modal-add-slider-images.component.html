@@ -1,0 +1,93 @@
+<div class="row">
+    <div class="col-6">
+        <h3> <strong> Restaurant Slider Image Details </strong> </h3>
+    </div>
+    <div class="col-6" [align]="'end'">
+        <button (click)="onClose()" mat-icon-button>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+</div>
+
+<mat-divider></mat-divider>
+<br>
+
+<form [formGroup]="sliderImageForm">
+
+    <div class="row">
+        <div class="col-6">
+            <!-- Sort Order Field -->
+            <mat-form-field style="width: 100%;">
+                <input autocomplete="off" matInput placeholder="Sorting Order" formControlName="sortOrder" type="number"
+                    min=0>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+                <!-- Main Page Field  -->
+                <br>
+                <mat-checkbox [color]="'primary'" formControlName="isMainPage">
+                    Is Main Page?
+                </mat-checkbox>
+          
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+             <!-- App Type field -->
+             <mat-form-field style="width: 100%;">
+                <mat-label>App Types</mat-label>
+                <mat-select [ngModelOptions]="{standalone: true}" [(ngModel)]='selectedAppType'>
+                    <mat-option *ngFor="let type of appTypeList;" [value]="type.id">
+                        {{ type.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+          <!-- Status Field -->
+          <mat-form-field style="width: 100%;">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+                <mat-option *ngFor="let status of statusList;" [value]="status.id">
+                    {{ status.title }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        </div>
+        <div class="col-md-6">
+            <mat-form-field style="width: 100%;">
+              <mat-label>Item Category</mat-label>
+              <mat-select formControlName="category">
+                <mat-option *ngFor="let i of categoryList" [value]="i">
+                  {{ i.title}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+    </div>
+   
+    <!-- Image Form -->
+    <form [formGroup]="imageForm">
+        <div style="padding: 10px;" [align]="'center'">
+            <app-image-upload (onFileUploaded)="onImageUploaded($event)"></app-image-upload>
+            <img *ngIf="imageUrl" class="uploaded-image" [src]="imageUrl" alt="">
+        </div>
+    </form>
+
+    <div style="height: 50px;" *ngIf="!isSubmitting" [align]="'end'">
+        <button type="button" (click)="onCancel()" mat-mini-fab [color]="'default'">
+            <i class="fa fa-times"></i>
+        </button>
+        &nbsp;
+        <button (click)="onSubmit()" [disabled]="isSubmitting || !(imageForm.valid && sliderImageForm.valid)" type="submit" mat-mini-fab [color]="'primary'">
+            <i class="fa fa-check"></i>
+        </button>
+    </div>
+
+    <div style="height: 50px;" *ngIf="isSubmitting">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+
+</form>

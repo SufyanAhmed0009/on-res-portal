@@ -1,0 +1,129 @@
+<div [ngClass]="containerClass">
+    <div class="chat-page row">
+        <div class="col-4 users-panel">
+            <!-- USERS-LIST GOES HERE -->
+            <div class="heading">
+                <div class="row">
+                    <div class="col-4" style="padding: 10px;">
+                        &nbsp;&nbsp;
+                        <span *ngIf="connecting">Connecting</span>
+                        <span style="color: blue;" *ngIf="!connecting">
+                            <i class="fa fa-check"></i>
+                            Connected
+                        </span>
+                    </div>
+                    <div class="col-2">
+                        <div *ngIf="connecting || loading" class="lds-ellipsis">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                    <div class="col-6" [align]="'end'">
+                        <!-- <button mat-mini-fab (click)="onClickMap()" [color]="'primary'">
+                            <i class="fa fa-map-o"></i>
+                        </button> -->
+                        <!-- <button (click)="toggleIssuesOnly()" [ngClass]="{'issues-active':issuesOnly}"
+                            matTooltip="Issues Only" mat-icon-button>
+                            <mat-icon>info</mat-icon>
+                        </button> -->
+                        <button (click)="onStartNewChat()" matTooltip="Start New Chat" mat-icon-button>
+                            <mat-icon>add</mat-icon>
+                        </button>
+                        <button matTooltip="Disconnect" mat-icon-button>
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="franchise-input-box">
+                <!-- Franchise Selector -->
+                <franchises-selector (cleared)="onFranchiseCleared()" (selected)="onFranchiseSelected($event)">
+                </franchises-selector>
+                <button (click)="onLoadMoreUser()" matTooltip="Load More" mat-icon-button>
+                    <mat-icon>library_add</mat-icon>
+                </button>
+                <!-- <a (click)="onLoadMoreUser()" *ngIf="!loading"
+                        class="link">
+                        Load More Users<i class="fa fa-arrow-up"></i>
+                    </a> -->
+            </div>
+            <div class="search-input-box">
+                <input (input)="onSearch()" [(ngModel)]="searchInput" placeholder="Search" class="search-input"
+                    type="text">
+            </div>
+            <cdk-virtual-scroll-viewport itemSize="70" class="chat-users">
+                <chat-user [userMessage]="message" [selectedUser]="selectedUser"
+                    (messageSelected)="onSelectUser($event)" 
+                    *cdkVirtualFor="let message of getMessages()"
+                    ></chat-user>
+                <!-- <chat-users [selectedUser]="selectedUser" (messageSelected)="onSelectUser($event)"
+                    [userMessages]="getMessages() | slice:0:50"></chat-users> -->
+            </cdk-virtual-scroll-viewport>
+
+        </div>
+        <div class="col-8 messages-panel">
+            <div class="customer-care" *ngIf="!selectedUser">
+                <img src="../../../../assets/customer-care.png" alt="">
+            </div>
+            <div class="heading" *ngIf="selectedUser">
+                <div class="row">
+                    <div class="col-4" style="padding: 10px;">
+                        &nbsp;&nbsp;
+                        <i class="fa fa-user"></i>
+                        &nbsp;
+                        {{ selectedUser.user | titlecase }}
+                    </div>
+                    <div class="col-8" [align]="'end'">
+
+                        <span *ngFor="let tag of selectedCustomerTags" class="customer-tag">
+                            {{ tag.title }}
+                            &nbsp;
+                            <i *ngIf="tag.primary" class="fa fa-check"></i>
+                        </span>
+
+                        <!-- <button (click)="onComplain($event)" mat-icon-button>
+                            <mat-icon>comment</mat-icon>
+                        </button> -->
+                        <!-- <button (click)="onUpdateUserTagging()" matTooltip="Edit Customer Tagging" mat-icon-button>
+                            <mat-icon>edit</mat-icon>
+                        </button> -->
+                        <!-- <button (click)="onDisplayCustomerOrders()" matTooltip="Customer Orders" mat-icon-button>
+                            <mat-icon>info</mat-icon>
+                        </button> -->
+                        <button (click)="onToggleScreen()" matTooltip="Toggle Fullscreen" mat-icon-button>
+                            <mat-icon>
+                                crop_free
+                            </mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="selectedUser" class="chat-messages" id="msgContainer">
+                <div style="padding: 20px;" [align]="'center'">
+                    <a (click)="onLoadMoreMessages()" *ngIf="page.listSize == selectedMessages?.length && !loadingMore"
+                        class="link">
+                        Load More <i class="fa fa-arrow-up"></i>
+                    </a>
+                    <span *ngIf="loadingMore">Loading...</span>
+                    <span *ngIf="(page.listSize > selectedMessages?.length) && !loadingMore">Chat starts here.
+                        <hr></span>
+                </div>
+                <chat-messages [selectedUserMessages]="selectedMessages"></chat-messages>
+            </div>
+            <div *ngIf="selectedUser" class="input-box">
+                <chat-input (send)="onSend($event)">
+                    <button (click)="onFix()" [disabled]="!selectedUser.issue" mat-mini-fab
+                        [color]="'default'">Fix</button>
+                         <!-- Inprogress -->
+                        &nbsp;
+                        <input (change)="onUpload($event)" type="file" #fileInput style="display: none;">
+                        <button (click)="fileInput.click();" mat-mini-fab [color]="'default'">
+                          <mat-icon>image</mat-icon>
+                        </button>    
+                </chat-input>
+            </div>
+        </div>
+    </div>
+</div>

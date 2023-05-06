@@ -1,0 +1,19 @@
+.mat-column-id {
+    flex: 0 0 10% !important;
+    width: 10% !important;
+}
+
+.mat-column-date {
+    flex: 0 0 70% !important;
+    width: 70% !important;
+}
+
+.mat-column-download {
+    flex: 0 0 20% !important;
+    width: 20% !important;
+    justify-content: center;
+}
+
+/* .refreshButton {
+    margin-left: 640px;
+} */

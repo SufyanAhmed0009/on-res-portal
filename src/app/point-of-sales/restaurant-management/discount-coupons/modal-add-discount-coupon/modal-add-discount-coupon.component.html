@@ -1,0 +1,292 @@
+<div class="row">
+    <div class="col-6">
+        <h3>{{this.data.pageTitle}} DISCOUNT COUPON</h3>
+    </div>
+    <div class="col-6" [align]="'end'">
+        <button mat-icon-button (click)="onClose()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+</div>
+
+<mat-divider></mat-divider>
+<br>
+
+<form [formGroup]="discountCouponForm">
+
+    <div class="row">
+        <div class="col-md-6">
+            <br>
+            <mat-form-field style="width: 100%;">
+                <input autocomplete="off" formControlName="title" matInput placeholder="Enter Title" type="text">
+            </mat-form-field>
+        </div>
+        <div class="col-md-6">
+            <mat-slide-toggle (change)="onToggleChange()" [color]="'primary'" [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="discInPercent">
+                Disc In Percentage?
+            </mat-slide-toggle>
+            <mat-slide-toggle [color]="'primary'" formControlName="isShowNotif">
+                Is Notification Shown?
+            </mat-slide-toggle>
+            <mat-slide-toggle [color]="'primary'" formControlName="excludeShopkeeper">
+                Exclude Shopkeeper?
+            </mat-slide-toggle>
+            <!-- </div> -->
+            <mat-slide-toggle [color]="'primary'" formControlName="isAutoApply">
+                Is Auto Apply?
+            </mat-slide-toggle>
+            <mat-slide-toggle [color]="'primary'" formControlName="restrictDevice">
+                Restrict To Single Device?
+            </mat-slide-toggle>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-7">
+            <mat-form-field style="width: 100%;">
+                <textarea matInput formControlName="details" placeholder="Enter Details" rows="2"></textarea>
+            </mat-form-field>
+        </div>
+        <div class="col-md-5">
+            <br>
+            <mat-form-field style="width: 100%;">
+                <mat-label>Coupon Types</mat-label>
+                <mat-select (selectionChange)="onTypeChange()" [ngModelOptions]="{standalone: true}"
+                    [(ngModel)]="selectedCouponType">
+                    <mat-option *ngFor="let type of couponTypesList;" [value]="type.id">
+                        {{ type.title }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <mat-form-field style="width: 100%;">
+                <input autocomplete="off" formControlName="promocode" matInput placeholder="Enter Promo Code"
+                    type="text">
+            </mat-form-field>
+        </div>
+
+        <div class="col-md-6">
+            <mat-form-field style="width: 100%;">
+                <input autocomplete="off" formControlName="minOrderValue" matInput placeholder="Min Order Value"
+                    type="number" min="0">
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Status Field -->
+            <mat-form-field style="width: 100%;">
+                <mat-label>Status</mat-label>
+                <mat-select formControlName="status">
+                    <mat-option *ngFor="let status of statusList;" [value]="status.id">
+                        {{ status.title }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-md-6">
+            <!-- App Type field --> 
+            <mat-form-field style="width: 100%;">
+                <mat-label>App Types</mat-label>
+                <mat-select [ngModelOptions]="{standalone: true}" [(ngModel)]='selectedAppType'>
+                    <mat-option *ngFor="let type of appTypesList;" [value]="type.id">
+                        {{ type.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <mat-form-field style="width: 100%;">
+                <input matInput [matDatepicker]="startPicker" formControlName="startingDate"
+                    placeholder="Starting Date">
+                <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                <mat-datepicker #startPicker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field style="width: 100%;">
+                <input matInput [matDatepicker]="expiryPicker" formControlName="expiryDate" placeholder="Expiry Date">
+                <mat-datepicker-toggle matSuffix [for]="expiryPicker"></mat-datepicker-toggle>
+                <mat-datepicker #expiryPicker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field style="width: 100%;">
+                <input matInput type="time" placeholder="Expiry Time" formControlName="expiryTime">
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row" *ngIf="selectedCouponType == 7">
+        <div class="col-md-4">
+            <mat-form-field style="width: 100%;">
+                <input matInput [matDatepicker]="startPicker" formControlName="retargettedDate"
+                    placeholder="Retargetted Date">
+                <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                <mat-datepicker #startPicker></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row"
+        *ngIf="selectedCouponType == 4 || selectedCouponType == 2 || selectedCouponType == 1 || selectedCouponType == 5 || selectedCouponType == 7 || selectedCouponType == 8">
+        <div class="col-md-4">
+            <mat-form-field style="width: 100%;">
+                <input type="number" matInput formControlName="orderCountCoupon" placeholder="Order Count Coupon">
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <mat-form-field style="width: 100%;">
+                <input autocomplete="off" formControlName="totalVouchers" matInput placeholder="Total Vouchers"
+                    type="number">
+            </mat-form-field>
+        </div>
+        <div class="col-md-4" *ngIf="selectedCouponType != 1 && selectedCouponType != 8 ">
+            <mat-form-field style="width: 100%;">
+                <input autocomplete="off" formControlName="totalVouchersIssued" matInput
+                    placeholder="Total Vouchers Issued" type="number">
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row"
+        *ngIf="selectedCouponType == 4 || selectedCouponType == 2 || selectedCouponType == 5 || selectedCouponType == 7">
+        <div class="col-md-6">
+            <mat-form-field style="width: 100%;">
+                <input type="number" matInput formControlName="usageLimitPerCustomer"
+                    placeholder="Usage Limit Per Customer">
+            </mat-form-field>
+        </div>
+        <div class="col-md-6">
+            <mat-form-field style="width: 100%;">
+                <input autocomplete="off" formControlName="maxAmountPerUse" matInput placeholder="Max Amount Per Use"
+                    type="number">
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8"
+            *ngIf="selectedCouponType == 4 || selectedCouponType == 1 || selectedCouponType == 5 || selectedCouponType == 7 || selectedCouponType == 8">
+            <div *ngIf="discInPercent">
+                <mat-form-field style="width: 100%;">
+                    <input autocomplete="off" formControlName="percentage" matInput placeholder="Discount In Percentage"
+                        type="number" min="0">
+                </mat-form-field>
+            </div>
+            <div *ngIf="!discInPercent">
+                <mat-form-field style="width: 100%;">
+                    <input autocomplete="off" formControlName="fixedAmount" matInput
+                        placeholder="Discount In Fixed Amount" type="number" min="0">
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8" *ngIf="selectedCouponType == 1">
+            <mat-form-field style="width: 100%;">
+                <input autocomplete="off" formControlName="additionalPercentage" matInput placeholder="Additional Percentage"
+                    type="number" min="0">
+            </mat-form-field>
+        </div>
+
+    </div>
+</form>
+
+<div class="range-box" *ngIf="selectedCouponType == 2 || selectedCouponType == 3 ">
+    <div class="row">
+        <div class="col-md-10">
+            <h3>Discount Range:</h3>
+        </div>
+
+        <div class="col-md-2" [align]="'end'">
+            <button (click)="addDiscountRange()" [color]="'default'" mat-mini-fab>
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <br>
+
+    <div class="row" *ngFor="let range of couponRanges; let i = index;">
+        <div class="col-md-3">
+            <mat-form-field style="width: 100%;">
+                <input [(ngModel)]="range.startRange" matInput type="number" placeholder="Start">
+            </mat-form-field>
+        </div>
+        <div class="col-md-3">
+            <mat-form-field style="width: 100%;">
+                <input [(ngModel)]="range.endRange" matInput type="number" placeholder="End">
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <div *ngIf="discInPercent">
+                <mat-form-field style="width: 100%;">
+                    <input [(ngModel)]="range.percentage" autocomplete="off" matInput placeholder="Disc In Percent"
+                        type="number" min="0">
+                </mat-form-field>
+            </div>
+            <div *ngIf="!discInPercent">
+                <mat-form-field style="width: 100%;">
+                    <input [(ngModel)]="range.fixedAmount" autocomplete="off" matInput placeholder="Disc In Fixed Amt"
+                        type="number" min="0">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="col-md-2" [align]='"end"'>
+            <button (click)="removeDiscountRange(i)" [color]="'default'" mat-mini-fab>
+                <i class="fa fa-minus"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="check-box">
+            <button (click)="deselectAllRestaurants()" mat-raised-button [color]="'default'">
+              Deselect All
+            </button>
+            &nbsp;
+            <button (click)="selectAllRestaurants()" mat-raised-button [color]="'default'">
+              Select All
+            </button>
+          </div>
+          
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Restaurants</mat-label>
+            <mat-select [(ngModel)]="selectedRestaurants" multiple>
+              <mat-option *ngFor="let type of restaurants" [value]="type.id">
+                {{ type.title }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+    </div>
+</div>
+
+
+<h3 *ngIf="this.data.pageTitle == 'ADD'">Image Upload</h3>
+<div class="row" *ngIf="this.data.pageTitle == 'ADD'">
+    <div class="col-md-12">
+        <app-image-upload (onFileUploaded)="onImageUpload($event)"></app-image-upload>
+        <br>
+        <img *ngIf="uploadedImageUrl" class="discount-image" [src]="uploadedImageUrl">
+        <br>
+    </div>
+</div>
+
+<div *ngIf="!isSubmitted" [align]="'end'">
+    <button (click)="onAddCoupon()" [disabled]="!discountCouponForm.valid" [color]="'primary'"
+        mat-raised-button>Submit</button>
+</div>
+<mat-progress-bar *ngIf="isSubmitted" mode="indeterminate"></mat-progress-bar>

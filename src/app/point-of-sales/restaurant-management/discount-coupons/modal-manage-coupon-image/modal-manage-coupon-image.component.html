@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-6">
+        <h3>Update Image</h3>
+    </div>
+    <div class="col-6" [align]="'end'">
+        <button mat-icon-button (click)="onClose()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+</div>
+
+<app-image-upload (onFileUploaded)="onUpload($event)"></app-image-upload>
+<br>
+<div style="padding: 20px;" [align]="'center'">
+    <img class="uploaded-image" [src]="imageUrl"> 
+</div>
+<div [align]="'end'">
+    <div *ngIf="isSubmitted" style="display: flex;">
+        <div style="flex-grow: 1;"></div>
+        <mat-spinner  diameter="30"></mat-spinner>
+    </div>
+    <button *ngIf="!isSubmitted"  [color]="'primary'" [disabled]="!isUpdated" (click)="onSubmit()" mat-raised-button>Update</button>
+</div> 

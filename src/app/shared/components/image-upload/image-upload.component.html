@@ -1,0 +1,6 @@
+<div [align]="'center'">
+    <input [disabled]="isUploading" type="file" id="file" (change)="onSelected($event)">
+    <label for="file" class="btn-2">upload</label>
+</div>
+
+<mat-progress-bar [color]="'success'" *ngIf="isUploading" mode="determinate" [value]="progress"></mat-progress-bar>

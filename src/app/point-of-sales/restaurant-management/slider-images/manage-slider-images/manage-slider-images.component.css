@@ -1,0 +1,51 @@
+.mat-column-id {
+    flex: 0 0 10% !important;
+    width: 10% !important;
+  }
+  
+  .mat-column-image,
+  .mat-column-sortOrder,
+  .mat-column-isFeelLuck,
+  .mat-column-isMainPage {
+    flex: 0 0 8% !important;
+    width: 8% !important;
+    justify-content: center;
+  }
+  
+  .mat-column-status {
+    flex: 0 0 12% !important;
+    width: 12% !important;
+    justify-content: center;
+  }
+  
+  .mat-column-actions {
+    flex: 0 0 10% !important;
+    width: 10% !important;
+    justify-content: center;
+  }
+  
+  .mat-column-franchises {
+    justify-content: center;
+  }
+  
+  mat-button-toggle {
+    height: 50px;
+    padding: 0px;
+    text-align: center;
+    border-radius: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  mat-button-toggle-group {
+    border-radius: 0px;
+    padding: 0;
+  }
+  
+  .mat-button-toggle-checked {
+    color: black;
+    border-bottom: 2px solid darkblue;
+    background-color: #ccf;
+  }
+  

@@ -1,0 +1,24 @@
+.mat-column-id {
+    flex: 0 0 10% !important;
+    width: 10% !important;
+}
+
+.mat-column-title {
+    flex: 0 0 20% !important;
+    width: 20% !important;
+}
+
+.mat-column-actions {
+    flex: 0 0 12% !important;
+    width: 12% !important;
+    justify-content: center;
+}
+
+.mat-row:hover {
+    background-color: #0002;
+    cursor: pointer;
+}
+
+.active {
+    background-color: #ccf;
+}

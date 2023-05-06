@@ -1,0 +1,39 @@
+.input, .textarea {
+    border: 1px solid white;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 1px 6px;
+    overflow: hidden;
+}
+
+.textarea {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    resize: both;
+    min-height: 40px;
+    line-height: 20px;
+    border-radius: 20px;
+    /* transition: 0.1s linear; */
+}
+
+.textarea:focus {outline:0;}
+
+.textarea[contenteditable]:empty::before {
+    content: "Placeholder still possible";
+    color: gray;
+    overflow: hidden;
+}
+
+.main-box {
+    display: flex;
+}
+
+.message-input {
+    flex: 1;
+    align-items: baseline;
+}
+
+.buttons {
+    padding: 0 10px;
+}

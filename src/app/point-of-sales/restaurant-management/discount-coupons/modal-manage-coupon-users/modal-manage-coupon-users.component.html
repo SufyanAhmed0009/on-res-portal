@@ -1,0 +1,194 @@
+<div class="row">
+    <div class="col-md-10">
+        <h3>{{ data.coupon.title }}</h3>
+    </div>
+    <div class="col-md-2">
+        <div class="row">
+            <div class="col-3" [align]="'end'">
+                <button (click)="onAddByPhone()"
+                                       [color]="'primary'" mat-mini-fab>
+                    <i class="fa fa-plus"></i>
+                </button>
+                   
+            </div>
+           
+        </div>
+    </div>
+</div>
+<div class="col-md-4" style="width: 100%">
+
+ 
+  
+</div>
+<mat-divider></mat-divider>
+<div style="padding-top: 10px;">
+    <button (click)="addMembershipCoupon()" [color]="'primary'" mat-raised-button>Assign membership coupon</button>
+    </div>
+<div [align]="'end'">
+ 
+    <form (ngSubmit)="onSearch()" [formGroup]="searchForm">
+        <button mat-mini-fab type="button" (click)="removeSearch()" [color]="'warn'">
+            <i class="fa fa-times"></i>
+        </button>
+        &nbsp;
+        <mat-form-field>
+            <!-- <input autocomplete="off" formControlName="searchInput" matInput placeholder="{{ 'Search'| dtrs:66 }}"> -->
+            <input autocomplete="off" formControlName="searchInput" matInput placeholder="{{ 'Search'}}">
+        </mat-form-field>
+        &nbsp;
+        <button mat-mini-fab [color]="'primary'">
+            <i class="fa fa-search"></i>
+        </button>
+        &nbsp;
+        <!-- Sheet Upload Button -->
+        <button mat-mini-fab (click)="onExcelUpload()" [color]="'primary'">
+            <i class="fa fa-upload"></i>
+        </button>
+        &nbsp;
+        <!-- List Update Button -->
+        <button mat-mini-fab (click)="onUpdate()" [color]="'primary'">
+            <i class="fa fa-check"></i>
+        </button>
+        &nbsp;
+        <button (click)="onRefresh()" [color]="'primary'" mat-mini-fab>
+            <i class="fa fa-refresh"></i>
+        </button>
+    </form>
+</div>
+
+<!-- PROGRESS BAR -->
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+
+<!-- MAT TABLE STARTS HERE -->
+<mat-table [dataSource]="usersList" class="mat-elevation-z8">
+
+    <!-- Select Column -->
+    <ng-container matColumnDef="select">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element; let i = index;">
+            <mat-checkbox [color]="'primary'" (change)="element.isSelected = !element.isSelected">
+            </mat-checkbox>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            {{ element.username }}
+        </mat-cell>
+    </ng-container>
+
+    <!-- Contact Number Column -->
+    <ng-container matColumnDef="number">
+        <mat-header-cell *matHeaderCellDef>Number</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            {{ showSensitiveInfo ? element.userphone : ' -' }}
+        </mat-cell>
+    </ng-container>
+
+    <!-- Max Amount Column -->
+    <ng-container matColumnDef="maxAmount">
+        <mat-header-cell *matHeaderCellDef>Max Amount</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <span *ngIf="!element.isSelected">{{ element.maxAmount | number:'.0' }}</span>
+            <mat-form-field *ngIf="element.isSelected" class="example-full-width">
+                <input matInput type="number" [(ngModel)]="element.maxAmount">
+            </mat-form-field>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Amount Used Column -->
+    <ng-container matColumnDef="amountUsed">
+        <mat-header-cell *matHeaderCellDef>Amount Used</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <span *ngIf="!element.isSelected">{{ element.amountUsed | number:'.0' }}</span>
+            <mat-form-field *ngIf="element.isSelected" class="example-full-width">
+                <input matInput type="number" [(ngModel)]="element.amountUsed">
+            </mat-form-field>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Usage Number Column -->
+    <ng-container matColumnDef="usageNumber">
+        <mat-header-cell *matHeaderCellDef>Usage Number</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <span *ngIf="!element.isSelected">{{ element.usageNumber | number:'.0' }}</span>
+            <mat-form-field *ngIf="element.isSelected" class="example-full-width">
+                <input matInput type="number" [(ngModel)]="element.usageNumber">
+            </mat-form-field>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Total Usage Number -->
+    <ng-container matColumnDef="totalUsage">
+        <mat-header-cell *matHeaderCellDef>Total Usage</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <span *ngIf="!element.isSelected">{{ element.totalUsage | number:'.0' }}</span>
+            <mat-form-field *ngIf="element.isSelected" class="example-full-width">
+                <input matInput type="number" [(ngModel)]="element.totalUsage">
+            </mat-form-field>
+
+        </mat-cell>
+    </ng-container>
+
+    <!-- Unlimited Column -->
+    <ng-container matColumnDef="unlimited">
+        <mat-header-cell *matHeaderCellDef>Usage Time</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <mat-checkbox *ngIf="element.isSelected" [color]="'primary'" [(ngModel)]="element.unlimited">
+            </mat-checkbox>
+            <i class="fa fa-check green" *ngIf="!element.isSelected && element.unlimited"></i>
+            <i class="fa fa-times red" *ngIf="!element.isSelected && !element.unlimited"></i>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Starting Date Column -->
+    <ng-container matColumnDef="startingDate">
+        <mat-header-cell *matHeaderCellDef>Starting Date</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <span *ngIf="!element.isSelected">{{ element.startingDate  | date:'MM/dd/yyyy'}}</span>
+            <mat-form-field *ngIf="element.isSelected" class="width-eighty">
+                <input matInput [matDatepicker]="startPicker" [(ngModel)]="element.startingDate">
+                <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                <mat-datepicker #startPicker></mat-datepicker>
+            </mat-form-field>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Expiry Date Column -->
+    <ng-container matColumnDef="expiryDate">
+        <mat-header-cell *matHeaderCellDef>Expiry Date</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <span *ngIf="!element.isSelected">{{ element.expiryDate  | date:'MM/dd/yyyy'}}</span>
+            <mat-form-field *ngIf="element.isSelected" class="width-eighty">
+                <input matInput [matDatepicker]="endPicker" [(ngModel)]="element.expiryDate">
+                <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                <mat-datepicker #endPicker> </mat-datepicker>
+            </mat-form-field>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef>
+            Remove
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <button (click)="onRemoveUser(element)" mat-mini-fab [color]="'default'">
+                <span style="color: black;">
+                    <mat-icon>delete</mat-icon>
+                </span>
+            </button>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnsList"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnsList"></mat-row>
+
+</mat-table>
+<!-- MAT TABLE ENDS HERE -->
+
+<br>
+<mat-paginator [pageIndex]="currentPage.page" [length]="numberOfRecords" [pageSize]="currentPage.size"
+    [pageSizeOptions]="[5, 10, 25, 100]" (page)="onPageChanged($event)">
+</mat-paginator>

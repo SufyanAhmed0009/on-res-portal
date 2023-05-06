@@ -1,0 +1,28 @@
+
+/* .mat-column-categoryId {
+    flex: 0 0 10% !important;
+    width: 10% !important;  
+    justify-content: center;
+}
+
+.mat-column-categoryTitle {
+    flex: 0 0 30% !important;
+    width: 30% !important;  
+    justify-content: center;
+} */
+
+.mat-row:hover {
+    background-color: #0002;
+    cursor: pointer;
+}
+
+.active {
+    background-color: #ccf;
+}
+
+.left{
+    padding: 10px;
+    position: unset;
+    left: 75px;
+    padding: 10px;
+}

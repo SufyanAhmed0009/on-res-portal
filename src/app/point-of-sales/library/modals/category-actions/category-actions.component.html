@@ -1,0 +1,78 @@
+<h2 class="invoice-heading">
+    <div class="row">
+        <div class="col-6" style="padding-top: 8px;">
+            <h3>Manage Category</h3>
+        </div>
+        <div [align]="'end'" class="col-6">
+            <button (click)="onClose()" mat-icon-button>
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    </div>
+</h2>
+
+<page-box>
+    <div class="range-box">
+        <div class="row">
+            <div class="col-md-8">
+                <h3>
+                    <strong>Category Hours:</strong>
+                </h3>
+            </div>
+
+            <div class="col-md-4" [align]="'end'">
+                <button (click)="onAddTime()" [color]="'default'" mat-mini-fab>
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+        </div>
+
+        <mat-divider></mat-divider>
+        <br>
+
+        <div class="row" *ngFor="let element of timeRanges; let i = index;">
+            <div class="col-md-12">
+                <ul *ngFor="let item of element.workingDays" class="li">
+                    <mat-checkbox [(ngModel)]="item.isOn" [color]="'primary'">
+                        {{item.title}} &nbsp;
+                    </mat-checkbox>
+                </ul>
+                <br /><br /><br />
+            </div>
+
+            <div class="row p-20" style="padding-left: 55px;">
+                <div class="col-md-4">
+                    <mat-form-field style="width: 100%;">
+                        <input [(ngModel)]="element.startTime" matInput type="time" placeholder="Start Time">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-4">
+                    <mat-form-field style="width: 100%;">
+                        <input [(ngModel)]="element.endTime" matInput type="time" placeholder="End Time">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-md-2" [align]='"end"'>
+                    <button (click)="removeTime(i)" [color]="'default'" mat-mini-fab>
+                        <span style="color: red;">
+                            <mat-icon>delete</mat-icon>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</page-box>
+
+<br/><br/>
+
+<div style="height: 50px;" *ngIf="!isSubmitting" [align]="'end'">
+    <button type="button" (click)="onCancel()" mat-mini-fab [color]="'default'">
+        <i class="fa fa-times"></i>
+    </button>
+    &nbsp;
+    <button (click)="onSubmit()" type="button" mat-mini-fab [color]="'primary'">
+        <i class="fa fa-check"></i>
+    </button>
+</div>

@@ -1,0 +1,47 @@
+<div>
+    <div *ngIf="isLoading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    <div>
+        <h3>Info</h3>
+    </div>
+
+    <form [formGroup]="addUserForm">
+
+        <mat-form-field style="width: 100%">
+            <mat-label>Select Membership </mat-label>
+            <mat-select formControlName="Membership" (selectionChange)="onSelect($event.value)">
+                <mat-option *ngFor="let option of userMemberships" [value]="option">{{ option.title }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field style="width: 100%">
+            <input formControlName="MaxAmount" placeholder="Max Amount" autocomplete="off" matInput type="number">
+        </mat-form-field>
+        <mat-form-field style="width: 100%">
+            <input formControlName="TotalUsage" placeholder="Total Usage" autocomplete="off" matInput type="number">
+        </mat-form-field>
+        <mat-form-field style="width: 100%;">
+            <input matInput [matDatepicker]="startPicker" formControlName="startingDate" placeholder="Starting Date">
+            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field style="width: 100%;">
+            <input matInput [matDatepicker]="expirePicker" formControlName="expiryDate" placeholder="Expiry Date">
+            <mat-datepicker-toggle matSuffix [for]="expirePicker"></mat-datepicker-toggle>
+            <mat-datepicker #expirePicker></mat-datepicker>
+        </mat-form-field>
+    </form>
+
+    <mat-progress-bar *ngIf="this.isLoading" mode="indeterminate"> </mat-progress-bar>
+    <br>
+    
+    <div [align]="'end'">
+        <button (click)="onAddMembershipCoupon()" mat-raised-button>
+            Add
+        </button>
+    </div>
+
+</div>

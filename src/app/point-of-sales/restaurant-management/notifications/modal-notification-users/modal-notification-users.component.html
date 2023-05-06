@@ -1,0 +1,44 @@
+<h3>Notifications Users</h3>
+<mat-divider></mat-divider>
+<br>
+<app-data-loader *ngIf="isLoading"></app-data-loader>
+
+<mat-table *ngIf="!isLoading" class="mat-elevation-z8" [dataSource]="usersList">
+
+    <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+        <mat-cell *matCellDef="let user;">
+            {{ user.id }}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="username">
+        <mat-header-cell *matHeaderCellDef>Username</mat-header-cell>
+        <mat-cell *matCellDef="let user;"> 
+            {{ user.userName }} 
+        </mat-cell> 
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+        <mat-cell *matCellDef="let user;">
+            {{ showSensitiveInfo ? user.userEmail : '-' }}
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="read">
+        <mat-header-cell *matHeaderCellDef>Read</mat-header-cell>
+        <mat-cell *matCellDef="let user;">
+            <span style="color: green;" *ngIf="user.isRead">
+                <i class="fa fa-check"></i>
+            </span>
+            <span style="color: gray;" *ngIf="!user.isRead">
+                <i class="fa fa-times"></i>
+            </span>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columnsList;"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columnsList;"></mat-row>
+
+</mat-table>

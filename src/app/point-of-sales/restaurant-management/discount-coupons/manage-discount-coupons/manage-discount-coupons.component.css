@@ -1,0 +1,41 @@
+.mat-column-id {
+    flex: 0 0 10% !important;
+    width: 10% !important;
+}
+
+.mat-column-name {
+    flex: 0 0 20% !important;
+    width: 20% !important;
+}
+
+.mat-column-image {
+    flex: 0 0 10% !important;
+    width: 10% !important;
+    padding: 10px !important;
+}
+
+.mat-column-percentage {
+    flex: 0 0 10% !important;
+    width: 10% !important;
+}
+
+.mat-column-expiry {
+    flex: 0 0 10% !important;
+    width: 10% !important;
+}
+
+.mat-column-validity {
+    flex: 0 0 10% !important;
+    width: 10% !important;
+}
+
+.mat-column-maxUsage {
+    flex: 0 0 10% !important;
+    width: 10% !important;
+}
+
+.mat-column-edit {
+    flex: 0 0 20% !important;
+    width: 20% !important;
+    justify-content: center;
+}

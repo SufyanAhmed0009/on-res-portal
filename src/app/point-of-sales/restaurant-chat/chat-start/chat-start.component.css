@@ -1,0 +1,19 @@
+.message-box {
+    display: flex;
+    height: 80vh;
+    flex-direction: column;
+}
+
+.search-results {
+    flex: 4;
+    overflow-y: scroll;
+}
+
+.send-message {
+    flex: 1; 
+    padding-top: 10px;
+}
+
+.active {
+    background-color: #ccc;
+}

@@ -1,0 +1,27 @@
+.discount-image {
+    display: block;
+    max-width: 200px;
+    margin: auto;
+}
+
+.range-box {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid grey;
+}
+
+.full-width {
+    width: 100%;
+  }
+  
+  .check-box {
+    display: block;
+    padding: 10px 0;
+    text-align: right;
+  }
+  
+  .flex {
+    display: flex;
+    height: 40px;
+  }
+  

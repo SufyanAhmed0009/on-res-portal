@@ -1,0 +1,27 @@
+.message-body {
+    padding: 10px;
+    margin: 10px;
+}
+
+.message-body.to {
+    background-color: #ccf;
+    border-radius: 10px 10px 0px 10px;
+    margin-left: 200px;
+    margin-right: 50px;
+}
+
+.message-body.from { 
+    background-color: #cfc;
+    margin-right: 200px;
+    margin-left: 50px;
+    border-radius: 0px 10px 10px 10px;
+} 
+
+.message-image {
+    display: block;
+    max-width: 100%;
+    max-width: 100px;
+    margin: auto;
+    cursor: zoom-in;
+  }
+  

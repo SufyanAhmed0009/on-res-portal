@@ -1,0 +1,32 @@
+.mat-column-id {
+    flex: 0 0 10% !important;
+    width: 10% !important;
+}
+
+.mat-column-title {
+    flex: 0 0 20% !important;
+    width: 20% !important;
+}
+
+
+.mat-column-type {
+    flex: 0 0 15% !important;
+    width: 15% !important;
+}
+
+.mat-column-reached {
+    flex: 0 0 12% !important;
+    width: 12% !important;
+}
+
+.mat-column-users {
+    flex: 0 0 10% !important;
+    width: 10% !important;
+    padding: 10px !important;
+}
+
+.mat-column-actions {
+    flex: 0 0 10% !important;
+    width: 10% !important;
+    padding: 10px !important;
+}
